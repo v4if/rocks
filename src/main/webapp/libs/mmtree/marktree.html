@@ -1,0 +1,48 @@
+<?xml
+version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet
+href="treestyles.css" type="text/css"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="fi" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>mmTree</title>
+        <link rel="stylesheet" href="./treestyles.css" type="text/css"/>
+        <script type="text/javascript" src="./marktree.js"></script>
+    </head>
+    <body>
+        <div class="basetop">
+            <a href="#" onclick="expandAll(document.getElementById('base'))">Expand</a>
+            - <a href="#" onclick="collapseAll(document.getElementById('base'))">Collapse</a>
+        </div>
+        <div id="base" class="basetext">
+            <noscript>
+                <p style="border: solid #ff0000; padding: 1em;text-align:center">
+                    <b>
+                        Nodes cannot be expanded if JavaScript is disabled.<br/>Please enable JavaScript.
+                    </b>
+                </p>
+            </noscript>
+            <ul>
+                <li class="col" style="">
+                    <span style="">mmTree</span>
+                    <ul class="subexp">
+                        <li class="col" style="">
+                            <span style="">Features</span>
+                            <ul class="subexp">
+                                
+                                <li class="basic" style="">
+                                    <span style="">Anonymous nodes are cut off unless they are leaf nodes.</span>
+                                </li>
+
+                                <li class="basic" style="">
+                                    <span style="">MarkTree is tested with Mozilla 1.4, Opera 7.0 and Internet Explorer 5.0 or later versions. Might work also with other browsers/versions.</span>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

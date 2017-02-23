@@ -1,0 +1,54 @@
+<map version="0.8.1_beta3">
+<!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
+<node CREATED="1142177595843" ID="Freemind_Link_559236926" MODIFIED="1142177595843" TEXT="mmTree">
+<node CREATED="1142177595843" ID="Freemind_Link_226169582" LINK="http://freemind.sourceforge.net" MODIFIED="1142177595843" POSITION="left" TEXT="Alternate HTML presentation format for mm format used by FreeMind mind mapping software"/>
+<node CREATED="1142177595843" ID="Freemind_Link_1286446656" MODIFIED="1142177595843" POSITION="left" TEXT="Uses MarkTree code for presentation and tree ui"/>
+<node CREATED="1142177595843" ID="Freemind_Link_1261721221" MODIFIED="1142177595843" POSITION="left" TEXT="mmTree is created by Miika Nurminen and released as Open Source (MPL 1.1/GPL/LGPL)"/>
+<node CREATED="1142177595843" ID="Freemind_Link_550370546" LINK="http://marktree.sourceforge.net" MODIFIED="1142177595843" POSITION="left" TEXT="More info at MarkTree web site"/>
+<node CREATED="1142177595843" ID="Freemind_Link_1010542180" MODIFIED="1142177595843" POSITION="left" TEXT="Acknowledgements to authors of FreeMind, an excellent mind mapping tool"/>
+<node CREATED="1142177595843" ID="Freemind_Link_1660769654" MODIFIED="1142177595843" POSITION="right" TEXT="Features">
+<node CREATED="1142177595843" ID="Freemind_Link_1456944606" MODIFIED="1142180805406" TEXT="Fully folding tree layout (opposed to HTML export in FreeMind, you can expand/collapse any node that has subnodes)">
+<font NAME="SansSerif" SIZE="12"/>
+</node>
+<node CREATED="1142177595843" ID="Freemind_Link_229425345" MODIFIED="1142180790031" TEXT="FreeMind-like Font styles, colours and sizes (different fonts are not supported)">
+<node CREATED="1142180792187" ID="_" MODIFIED="1142180918250" TEXT="testing font style">
+<font ITALIC="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node CREATED="1142180799734" ID="Freemind_Link_250932768" MODIFIED="1142180813562" TEXT="font size">
+<font NAME="SansSerif" SIZE="18"/>
+</node>
+<node COLOR="#009933" CREATED="1142180819406" ID="Freemind_Link_637029629" MODIFIED="1142180838734" TEXT="node color"/>
+<node BACKGROUND_COLOR="#ff6666" CREATED="1142180840515" ID="Freemind_Link_1927030396" MODIFIED="1142180858765" TEXT="background color"/>
+</node>
+<node CREATED="1142177595843" ID="Freemind_Link_77401868" MODIFIED="1142177757703" TEXT="FreeMind-like links, pictures,clouds and inline html.">
+<node CREATED="1142177595843" ID="Freemind_Link_188008144" MODIFIED="1142180686406" TEXT="internal links and arrowlinks are also supported since version 0.2">
+<cloud COLOR="#ccccff"/>
+<node CREATED="1142177595843" ID="Freemind_Link_154372124" LINK="#Freemind_Link_1226973104" MODIFIED="1142180663078" TEXT="for example, an internal link"/>
+<node CREATED="1142177595843" ID="Freemind_Link_221857397" MODIFIED="1142180658625" TEXT="and an arrowlink">
+<arrowlink DESTINATION="Freemind_Link_1226973104" ENDARROW="Default" ENDINCLINATION="727;0;" ID="Freemind_Arrow_Link_911832856" STARTARROW="None" STARTINCLINATION="978;107;"/>
+</node>
+</node>
+<node CREATED="1142177595843" ID="Freemind_Link_1033363789" MODIFIED="1142181544703" TEXT="some inner html:">
+<cloud/>
+<node CREATED="1142177595843" ID="Freemind_Link_1457565356" MODIFIED="1142180101906" TEXT="&lt;html&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;11&lt;/td&gt;&lt;td&gt;12&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;21&lt;/td&gt;&lt;td&gt;22&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/html&gt;"/>
+</node>
+</node>
+<node CREATED="1142177595843" ID="Freemind_Link_278764179" MODIFIED="1142177595843" TEXT="Anonymous nodes are cut off unless they are leaf nodes."/>
+<node CREATED="1142177595843" ID="Freemind_Link_1061297271" MODIFIED="1142177595843" TEXT="Supports Freemind Icons since version 0.2">
+<icon BUILTIN="bookmark"/>
+</node>
+<node CREATED="1142177595843" ID="Freemind_Link_494972219" MODIFIED="1142177595843" TEXT="Fast and intuitive MarkTree-style keyboard and/or mouse navigation with highlighted focus">
+<node CREATED="1142177595843" ID="Freemind_Link_1493318025" MODIFIED="1142177595843" TEXT="Browse with arrows or numpad keys / * - +"/>
+<node CREATED="1142177595843" ID="Freemind_Link_1982262140" MODIFIED="1142177595843" TEXT="You can fold nodes by clicking the general empy area of the intended node (no need to click tree symbols, although they work also)"/>
+</node>
+<node CREATED="1142177595843" ID="Freemind_Link_599648915" MODIFIED="1142177595843" TEXT="Renders valid XHTML 1.1, provided user-entered data is valid..."/>
+<node CREATED="1142177595843" ID="Freemind_Link_1776360160" MODIFIED="1142177595843" TEXT="MarkTree is tested with Mozilla 1.4, Opera 7.0 and Internet Explorer 5.0 or later versions. Might work also with other browsers/versions."/>
+</node>
+<node CREATED="1142177595843" ID="Freemind_Link_1226973104" MODIFIED="1142177640703" POSITION="right" TEXT="Installation package includes:">
+<node CREATED="1142177595843" ID="Freemind_Link_291919479" MODIFIED="1142177655437" TEXT="XHTML 1.1 XSL and CSS style files"/>
+<node CREATED="1142177595843" ID="Freemind_Link_165284793" MODIFIED="1142177595843" TEXT="Minimal XSL Transformer utility using Java 1.4 (you could also use any XSLT processor, like Xalan or Xerces. Works also in XSLT-enabled browsers, like Mozilla or Internet Explorer)"/>
+<node CREATED="1142177595843" ID="Freemind_Link_1617805994" MODIFIED="1142177595843" TEXT="Windows batch files for converting a single file or entire directory of mm files"/>
+<node CREATED="1142177595843" ID="Freemind_Link_1984258827" MODIFIED="1142177595843" TEXT="MarkTree JavaScript code and default tree pictures"/>
+</node>
+</node>
+</map>

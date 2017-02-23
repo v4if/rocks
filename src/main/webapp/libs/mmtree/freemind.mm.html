@@ -1,0 +1,1285 @@
+<html>
+<head>
+<title>FreeMind</title>
+<style type="text/css">
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    li { list-style: none; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a:link {text-decoration: none; color: black; }
+    a:visited {text-decoration: none; color: black; }
+    a:active {text-decoration: none; color: black; }
+    a:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script language="JavaScript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class=foldspecial onclick="fold_document()">All +</SPAN>
+<SPAN class=foldspecial onclick="unfold_document()">All -</SPAN>
+<p><span style="color: #993300;font-size: 150%;font-family: dialog, sans-serif; font-weight: bold; ">FreeMind</span>
+<ul><li><a href="http://freemind.sourceforge.net" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: SansSerif, sans-serif; ">Home page of FreeMind</span>
+</a>
+
+</li>
+<li><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</Span>
+<span style="color: #006699;font-size: 125%;font-family: SansSerif, sans-serif; ">Credits</span>
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #006699;">Authors</span>
+<ul><li><span style="color: #996600;font-size: 125%;font-family: SansSerif, sans-serif; ">Joerg Mueller</span>
+<ul><li><a href="mailto:ponders@t-online.de" target="_blank"><span class=l>~</span>&nbsp;<span style="color: #558000;font-size: 83%;font-family: Default, sans-serif; ">ponders@t-online.de</span>
+</a>
+
+</li>
+<li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">University of Freiburg, Germany</span>
+
+</li>
+
+</ul>
+</li>
+<li><a href="http://mujweb.cz/www/danielpolansky" target="_blank"><span class=l>~</span>&nbsp;<span style="color: #996600;font-size: 125%;font-family: SansSerif, sans-serif; ">Daniel Polansky</span>
+</a>
+
+</li>
+<li><span style="color: #996600;font-size: 116%;font-family: SansSerif, sans-serif; ">Petr Novak</span>
+
+</li>
+<li><span style="color: #996600;font-size: 125%;font-family: SansSerif, sans-serif; ">Christian Foltin</span>
+<ul><li><a href="mailto:christian.foltin@gmx.de" target="_blank"><span class=l>~</span>&nbsp;<span style="color: #558000;font-size: 83%;font-family: Default, sans-serif; ">christian.foltin@gmx.de</span>
+</a>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #006699;font-family: SansSerif, sans-serif; ">Smaller contributions</span>
+<ul><li><span style="color: #996600;font-family: SansSerif, sans-serif; ">David Butt</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">Tutorial flash</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #996600;font-family: SansSerif, sans-serif; ">David Low</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">Helpful</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #996600;font-family: SansSerif, sans-serif; ">Andrew Iggleden</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">Installer Windows</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #996600;font-size: 116%;font-family: SansSerif, sans-serif; ">Dimitri Polivaev</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">Bug removal</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #996600;font-family: SansSerif, sans-serif; ">Bob Alexander</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">Eclipse howto</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #006699;">Translations</span>
+<ul><li><span style="color: #996600;font-family: SansSerif, sans-serif; ">Bob Alexander</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">Italian translation</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #996600;font-family: SansSerif, sans-serif; ">Knud Riish&#248;jg&#229;rd</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">Danish translation</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #996600;font-family: SansSerif, sans-serif; ">Takeshi Kakeda</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">Japanese translation</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #996600;font-family: SansSerif, sans-serif; ">Alex Dukal</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">Spanish translation</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #006633;font-size: 141%;font-family: SansSerif, sans-serif; ">FreeMind</span>
+<ul><li><span id="show1_2" class="foldclosed" onClick="show_folder('1_2')" style="POSITION: absolute">+</span> <span id="hide1_2" class="foldopened" onClick="hide_folder('1_2')">-</Span>
+<span style="color: #006633;">Installation</span>
+<ul id="fold1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #006633;">Download</span>
+<ul><li><a href="http://java.sun.com/j2se" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: Lucida Sans, sans-serif; ">Download the Java Runtime Environment</span>
+</a>
+<ul><li>You need at least J2RE1.4!
+
+</li>
+
+</ul>
+</li>
+<li><a href="http://sourceforge.net/project/showfiles.php?project_id=7118" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: Lucida Sans, sans-serif; ">Download the Application</span>
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #006633;">Installation</span>
+<ul><li><p>1) Install Java. 2) Unpack FreeMind. 3) On Windows, run FreeMind.exe; you'll probably want to create a folder called freemind in "c:\Program Files\" and copy the contents of unpacked directory there. If you want, create shortcut of FreeMind.exe on your desktop.
+<p>On Unix, run freemind.sh. On both Windows and Mac OS X, you can also simply double click the file freemind.jar located at the folder lib.
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #006633;font-size: 133%;font-family: SansSerif, sans-serif; ">Creating mind maps</span>
+<ul><li><p>You create mind maps in so called mind map mode. This is the default mode FreeMind is started with. If the word mode troubles you, just forget about it.
+<p><span style="color: #669900;font-family: sansserif, sans-serif; ">Operations on node or edge</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Right click on node and select from menu. &nbsp;Most should be self explanatory.</span>
+
+</li>
+
+</ul><p><span style="color: #669900;font-family: sansserif, sans-serif; ">Quickly change to different already opened mind map</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Right click on the background and select a different map from the menu</span>
+
+</li>
+
+</ul><p><span style="color: #669900;font-family: sansserif, sans-serif; ">Selecting multiple nodes</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">To select multiple nodes hold control or shift while clicking.</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Control lets you add single nodes to a set of already selected nodes.</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Shift lets you select continuous ranges of nodes or whole subtrees of nodes.</span>
+
+</li>
+
+</ul><p><span id="show1_3" class="foldclosed" onClick="show_folder('1_3')" style="POSITION: absolute">+</span> <span id="hide1_3" class="foldopened" onClick="hide_folder('1_3')">-</Span>
+<span style="color: #669900;font-size: 116%;font-family: sansserif, sans-serif; ">Editing by drag and drop</span>
+<ul id="fold1_3" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: sansserif, sans-serif; ">You can move nodes around using Drag And Drop</span>
+<p><span style="font-family: sansserif, sans-serif; ">Drag and Drop enables you to drop node</span>
+<ul><li><p><span style="font-family: SansSerif, sans-serif; ">as a child</span>
+<ul><li><span style="color: #666666;font-family: sansserif, sans-serif; ">destination node highlights to the right</span>
+
+</li>
+
+</ul><p><span style="font-family: SansSerif, sans-serif; ">as a sibling.</span>
+<ul><li><span style="color: #666666;font-family: sansserif, sans-serif; ">destination node highlights on top</span>
+
+</li>
+
+</ul><p><span style="color: #999999;font-size: 83%;font-family: sansserif, sans-serif; ">The distintion between child and sibling is similar to distinction between following links and toggle folded</span>
+</li>
+</ul><p><span style="font-family: sansserif, sans-serif; ">If you hold control while dragging, nodes are copied instead of moved. You can achieve the same by dragging with middle mouse</span>
+<p><span style="color: #339900;font-family: sansserif, sans-serif; ">Before Version 0.7: 
+<br>
+
+<br>
+if you hold control and shift while dragging, the color and font of the target node is copied to source node.</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">You can achieve the same by dragging with right mouse</span>
+
+</li>
+<li><span style="color: #000000;font-family: dialog, sans-serif; font-weight: bold; ">Target node to source node!!</span>
+<ul><li><span style="color: #000000;font-family: dialog, sans-serif; font-weight: bold; ">This is contraintuitive!!</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">But this enables you to change color of multiple nodes in one Drag and Drop</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul><p><span style="font-family: sansserif, sans-serif; ">If you have selected multiple nodes, all are being moved / copied</span>
+<p>You can drop sources from external applications
+<ul><li>Files
+<ul><li><span style="color: #999999;font-size: 83%;font-family: sansserif, sans-serif; ">(on Windows)</span>
+
+</li>
+
+</ul>
+</li>
+<li>Pieces of text
+<ul><li><span style="color: #999999;font-size: 83%;font-family: sansserif, sans-serif; ">(works with dropping of text selection in MS Internet Explorer)</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul></li>
+</ul><p><span style="color: #669900;font-size: 83%;font-family: Default, sans-serif; ">You can edit a new map by dragging and dropping its file into the background of FreeMind</span>
+<p><span id="show1_4" class="foldclosed" onClick="show_folder('1_4')" style="POSITION: absolute">+</span> <span id="hide1_4" class="foldopened" onClick="hide_folder('1_4')">-</Span>
+<span style="color: #669900;font-family: sansserif, sans-serif; ">Copying and pasting</span>
+<ul id="fold1_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: sansserif, sans-serif; ">You can copy and paste (multiple) nodes between mindmaps as expected.</span>
+
+</li>
+<li><span id="show1_4_1" class="foldclosed" onClick="show_folder('1_4_1')" style="POSITION: absolute">+</span> <span id="hide1_4_1" class="foldopened" onClick="hide_folder('1_4_1')">-</Span>
+<span style="color: #669900;font-size: 116%;font-family: sansserif, sans-serif; ">Pasting external data into FreeMind</span>
+<ul id="fold1_4_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: sansserif, sans-serif; ">In addition to that, you can paste normal text or HTML from other applications.</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Normal text</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Multiple lines are pasted a multiple nodes</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">URLs are automatically recognized and links are created</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Lines with different depth are pasted in different depth.</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">e.g.</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Source</span>
+<ul><li><span style="color: #996600;font-family: sansserif, sans-serif; ">Tree</span>
+
+</li>
+<li><span style="color: #996600;font-family: sansserif, sans-serif; "> &nbsp;&nbsp;&nbsp;&nbsp;Oak</span>
+
+</li>
+<li><span style="color: #996600;font-family: sansserif, sans-serif; "> &nbsp;&nbsp;&nbsp;&nbsp;Beech</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">.. is pasted as</span>
+<ul><li><span style="color: #996600;font-family: sansserif, sans-serif; ">Tree</span>
+<ul><li><span style="color: #996600;font-family: sansserif, sans-serif; ">Oak</span>
+
+</li>
+<li><span style="color: #996600;font-family: sansserif, sans-serif; ">Beech</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">HTML</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">HTML is pasted as normal text, but also links contained in HTML are separately pasted</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">e.g.</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Shopping (120236)</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Urban Living (19)</span>
+
+</li>
+<li><span style="font-family: dialog, sans-serif; font-weight: bold; ">Links</span>
+<ul><li><a href="http://directory.google.com/Top/Shopping/" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: sansserif, sans-serif; ">Shopping</span>
+</a>
+
+</li>
+<li><a href="http://directory.google.com/Top/Home/Urban_Living/" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: sansserif, sans-serif; ">Urban Living</span>
+</a>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>File list
+<ul><li>Paste a set of files selected in Explorer on Windows
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Pasting branches from FreeMind into other applications</span>
+<ul><li><span id="show1_4_2" class="foldclosed" onClick="show_folder('1_4_2')" style="POSITION: absolute">+</span> <span id="hide1_4_2" class="foldopened" onClick="hide_folder('1_4_2')">-</Span>
+<span style="font-family: sansserif, sans-serif; ">As text</span>
+<ul id="fold1_4_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: sansserif, sans-serif; ">The tree structure is displayed by indent</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">e.g.</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Source</span>
+<ul><li><span style="color: #996600;font-family: sansserif, sans-serif; ">Tree</span>
+<ul><li><span style="color: #996600;font-family: sansserif, sans-serif; ">Oak</span>
+
+</li>
+<li><span style="color: #996600;font-family: sansserif, sans-serif; ">Beech</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">.. is pasted as</span>
+<ul><li><span style="color: #996600;font-family: sansserif, sans-serif; ">Tree</span>
+
+</li>
+<li><span style="color: #996600;font-family: sansserif, sans-serif; "> &nbsp;&nbsp;&nbsp;&nbsp;Oak</span>
+
+</li>
+<li><span style="color: #996600;font-family: sansserif, sans-serif; "> &nbsp;&nbsp;&nbsp;&nbsp;Beech</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Links are pasted too in &lt; &gt; brackets</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">e.g.</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Source</span>
+<ul><li><a href="http://www.google.com/" target="_blank"><span class=l>~</span>&nbsp;<span style="color: #996600;font-family: sansserif, sans-serif; ">Google</span>
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">.. is pasted as</span>
+<ul><li><span style="color: #996600;font-family: sansserif, sans-serif; ">Google &lt;http://www.google.com/&gt;</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4_3" class="foldclosed" onClick="show_folder('1_4_3')" style="POSITION: absolute">+</span> <span id="hide1_4_3" class="foldopened" onClick="hide_folder('1_4_3')">-</Span>
+<span style="font-family: sansserif, sans-serif; ">As RTF</span>
+<ul id="fold1_4_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: sansserif, sans-serif; ">Paste the branch contents into ...</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Outlook message</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Wordpad</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Word</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Text formatting is pasted (color and font)</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Links are pasted in a similar fashion as in pasting text</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>You can copy single node without its children by Copy Single
+<ul><li><span style="color: #996600;">Ctrl + Y</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul><p><span style="color: #669900;font-family: sansserif, sans-serif; ">Splitting nodes</span>
+<ul><li>It is possible to split long nodes
+<ul><li><span style="color: #999999;font-size: 83%;font-family: sansserif, sans-serif; ">use button Split or key mnemonic with Alt</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul><p><span style="color: #669900;font-family: sansserif, sans-serif; ">Scrolling</span>
+<ul><li><span style="color: #339900;font-family: sansserif, sans-serif; ">You can scroll the map by dragging the background and moving around</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">You can scroll the map using mouse wheel</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">To scroll horizontally, hold shift or one of the mouse buttons</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul><p><span style="color: #669900;font-family: sansserif, sans-serif; ">Fast switching between maps</span>
+<ul><li><span style="font-family: SansSerif, sans-serif; ">With rightclick on the map, you can select from popup menu from already loaded maps</span>
+
+</li>
+
+</ul><p><span id="show1_5" class="foldclosed" onClick="show_folder('1_5')" style="POSITION: absolute">+</span> <span id="hide1_5" class="foldopened" onClick="hide_folder('1_5')">-</Span>
+<span style="color: #669900;font-family: sansserif, sans-serif; ">Searching</span>
+<ul id="fold1_5" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: SansSerif, sans-serif; ">Popup &gt; Node &gt; Find</span>
+<ul><li><span style="color: #996600;">Ctrl + F</span>
+<ul><li>Find the first occurence of a string in the subtree of active node.
+
+</li>
+
+</ul>
+</li>
+
+</ul><p>Popup &gt; Node &gt; Find Next
+<ul><li><span style="color: #996600;">Ctrl + G</span>
+<ul><li>Find the next match of previous search
+
+</li>
+
+</ul>
+</li>
+
+</ul><p>The search is breadth-first search. That corresponds to the idea, that the deeper the node, the greater the detail described.
+</li>
+</ul><p><span id="show1_6" class="foldclosed" onClick="show_folder('1_6')" style="POSITION: absolute">+</span> <span id="hide1_6" class="foldopened" onClick="hide_folder('1_6')">-</Span>
+<span style="color: #669900;font-family: sansserif, sans-serif; ">Using the keyboard</span>
+<ul id="fold1_6" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: SansSerif, sans-serif; ">You can do most of the navigation using keyboard. You can see the keyboard shortcuts in the popup menu of the node. Some of the shortcuts which you do not see that way follow.</span>
+<p><span style="color: #996600;font-family: SansSerif, sans-serif; ">PgUp and PgDown</span>
+<ul><li><span style="font-family: SansSerif, sans-serif; ">scroll by a large skip up and down</span>
+
+</li>
+
+</ul><p><span style="color: #996600;font-family: SansSerif, sans-serif; ">control PgUp and control PgDown</span>
+<ul><li><span style="font-family: SansSerif, sans-serif; ">scroll by a large skip left and up</span>
+
+</li>
+
+</ul><p><span style="color: #999999;font-size: 83%;font-family: SansSerif, sans-serif; ">Nice for having a quick glance above and then continue below again</span>
+<p><span style="color: #996600;font-family: SansSerif, sans-serif; ">Escape</span>
+<ul><li><span style="font-family: SansSerif, sans-serif; ">Move to root</span>
+
+</li>
+
+</ul><p><span style="color: #996600;font-family: SansSerif, sans-serif; ">Arrows</span>
+<ul><li><span style="font-family: SansSerif, sans-serif; ">Move around</span>
+
+</li>
+
+</ul><p>You can select a range of nodes by holding shift and moving around with arrows or page up and down.
+<p>You can replace the text in current node and start editing by typing letters. You can also edit node by pressing home or end key, as well as F2.
+<p><span style="font-family: SansSerif, sans-serif; ">Technical users can change the keyboard settings in user.properties.</span>
+</li>
+</ul><p><span id="show1_7" class="foldclosed" onClick="show_folder('1_7')" style="POSITION: absolute">+</span> <span id="hide1_7" class="foldopened" onClick="hide_folder('1_7')">-</Span>
+<span style="color: #669900;">Keyboard while editing a long node</span>
+<ul id="fold1_7" style="POSITION: relative; VISIBILITY: visible;"><li><p>By default, *enter* finishes editing of a long node, and *control enter* enters a new line. By unchecking the check box "Enter confirms" you can reverse the function of the mentioned key combinations, i.e. *enter* enters new line and *control enter* finishes editing. You can set the default value of that check box in user.properties. Moreover the value of the box is saved during a session of FreeMind.
+</li>
+</ul><p><span id="show1_8" class="foldclosed" onClick="show_folder('1_8')" style="POSITION: absolute">+</span> <span id="hide1_8" class="foldopened" onClick="hide_folder('1_8')">-</Span>
+<span style="color: #669900;font-family: sansserif, sans-serif; ">Exporting into HTML</span>
+<ul id="fold1_8" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: sansserif, sans-serif; ">It is possible to export mind map or branch to HTML</span>
+
+</li>
+<li><span style="color: #339900;font-family: sansserif, sans-serif; ">HTML page contains folding</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Folding works in Explorer as well as in Mozilla (both Windows and Linux)</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Folding does not work in Netscape 4.7</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul><p><span id="show1_9" class="foldclosed" onClick="show_folder('1_9')" style="POSITION: absolute">+</span> <span id="hide1_9" class="foldopened" onClick="hide_folder('1_9')">-</Span>
+<span style="color: #669900;font-family: Default, sans-serif; ">Importing folder structure</span>
+<ul id="fold1_9" style="POSITION: relative; VISIBILITY: visible;"><li><p>To import folder structure into FreeMind, use Popup &gt; Branch &gt; Import folder structure. You will be asked for the folder whose structure you want to import. By structure we mean the tree of all, and not necessary direct, subfolders with the links to the files in these subfolders. An example of inserted structure follows.
+<p><span style="color: #996600;font-family: sansserif, sans-serif; ">Example</span>
+<ul><li><span style="color: #996600;font-family: sansserif, sans-serif; ">Selected folder</span>
+<ul><li><a href="C:\Program Files\Microsoft Office\Office\Bitmaps" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: sansserif, sans-serif; ">C:\Program Files\Microsoft Office\Office\Bitmaps</span>
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/" target="_blank"><span class=l>~</span>&nbsp;Dbwiz
+</a>
+<ul><li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/ASSETS.GIF" target="_blank"><span class=l>~</span>&nbsp;ASSETS.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/CONTACTS.GIF" target="_blank"><span class=l>~</span>&nbsp;CONTACTS.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/EVTMGMT.GIF" target="_blank"><span class=l>~</span>&nbsp;EVTMGMT.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/EXPENSES.GIF" target="_blank"><span class=l>~</span>&nbsp;EXPENSES.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/INVENTRY.GIF" target="_blank"><span class=l>~</span>&nbsp;INVENTRY.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/LEDGER.GIF" target="_blank"><span class=l>~</span>&nbsp;LEDGER.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/ORDPROC.GIF" target="_blank"><span class=l>~</span>&nbsp;ORDPROC.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/RESOURCE.GIF" target="_blank"><span class=l>~</span>&nbsp;RESOURCE.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/SERVICE.GIF" target="_blank"><span class=l>~</span>&nbsp;SERVICE.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Dbwiz/TIMEBILL.GIF" target="_blank"><span class=l>~</span>&nbsp;TIMEBILL.GIF
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/" target="_blank"><span class=l>~</span>&nbsp;Styles
+</a>
+<ul><li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACBLENDS.GIF" target="_blank"><span class=l>~</span>&nbsp;ACBLENDS.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACBLUPRT.GIF" target="_blank"><span class=l>~</span>&nbsp;ACBLUPRT.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACEXPDTN.GIF" target="_blank"><span class=l>~</span>&nbsp;ACEXPDTN.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACINDSTR.GIF" target="_blank"><span class=l>~</span>&nbsp;ACINDSTR.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACRICEPR.GIF" target="_blank"><span class=l>~</span>&nbsp;ACRICEPR.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACSNDSTN.GIF" target="_blank"><span class=l>~</span>&nbsp;ACSNDSTN.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACSUMIPT.GIF" target="_blank"><span class=l>~</span>&nbsp;ACSUMIPT.GIF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/GLOBE.WMF" target="_blank"><span class=l>~</span>&nbsp;GLOBE.WMF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/STONE.BMP" target="_blank"><span class=l>~</span>&nbsp;STONE.BMP
+</a>
+
+</li>
+
+</ul>
+</li>
+
+</ul></li>
+</ul><p><span id="show1_10" class="foldclosed" onClick="show_folder('1_10')" style="POSITION: absolute">+</span> <span id="hide1_10" class="foldopened" onClick="hide_folder('1_10')">-</Span>
+<span style="color: #669900;font-size: 83%;font-family: Default, sans-serif; ">Importing MS Internet Explorer favorites</span>
+<ul id="fold1_10" style="POSITION: relative; VISIBILITY: visible;"><li><p>To import MS Explorer favorites into FreeMind, use Popup &gt; Branch &gt; Import Explorer Favorites. You'll be asked to enter the path to the folder where the favorites are stored. The folder's name is "Favorites" and you can find on your disk. On Windows 2000, the path is C:\Documents and Settings\&lt;user&gt;\Favorites.
+</li>
+</ul><p><span id="show1_11" class="foldclosed" onClick="show_folder('1_11')" style="POSITION: absolute">+</span> <span id="hide1_11" class="foldopened" onClick="hide_folder('1_11')">-</Span>
+<span style="color: #669900;font-family: sansserif, sans-serif; ">Integration with Microsoft tools like Word or Outlook</span>
+<ul id="fold1_11" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: sansserif, sans-serif; ">You can paste maps or branches into MS Work, MS Wordpad or MS Outlook messages. In general, you can paste it into any application that understands RTF - rich text format. The text formatting and links are pasted too.</span>
+<p><a href="mailto:dan.polansky@seznam.cz" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: sansserif, sans-serif; ">Clicking a mail link (mailto:dan.polansky@seznam.cz) will open Outlook for creating a new message</span>
+</a>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">if not set otherwise in Windows</span>
+
+</li>
+
+</ul><p><a href="mailto:dan.polansky@seznam.cz?subject=Thank you for the FreeMind" target="_blank"><span class=l>~</span>&nbsp;You can use subject in mail link
+</a>
+</li>
+</ul><p><span id="show1_12" class="foldclosed" onClick="show_folder('1_12')" style="POSITION: absolute">+</span> <span id="hide1_12" class="foldopened" onClick="hide_folder('1_12')">-</Span>
+<span style="color: #669900;font-family: sansserif, sans-serif; ">Preferences</span>
+<ul id="fold1_12" style="POSITION: relative; VISIBILITY: visible;"><li><p>Only a small subset of preferences is editable using graphical using interface; these you can change in menu: Edit &gt; Preferences. At the time, the following preferences can be changed:
+<p><span style="font-family: SansSerif, sans-serif; ">You can set full antialiasing or antialiasing of edges only. Antialiasing of edges is the default option.</span>
+<p><span style="font-family: SansSerif, sans-serif; ">You can set a kind of HTML export in preferences.</span>
+<p>Other preferences can be changed by more technical users in user.properties, <b>which you have to copy into the folder freemind in your home folder</b>.
+</li>
+</ul><p><span id="show1_13" class="foldclosed" onClick="show_folder('1_13')" style="POSITION: absolute">+</span> <span id="hide1_13" class="foldopened" onClick="hide_folder('1_13')">-</Span>
+<span style="color: #669900;font-family: sansserif, sans-serif; ">Printing</span>
+<ul id="fold1_13" style="POSITION: relative; VISIBILITY: visible;"><li><p>You can print either by fitting the whole map into one page, or by printing the map to several sheets of paper. This choice you can set in menu: File &gt; Page Setup &gt; ... .
+<p><span style="font-family: sansserif, sans-serif; ">Choose page setup landscape. That way it looks better and you have a better utilization of space.</span>
+<p>If you want to preview your map before you print it and have a postscript printer or generic postsript driver, you can print the map into file and view the postscript file view ghostview or similar software. Beware that if you try to print the map with printer that does not understand postscript, the resulting file will not be postscript but probably PCL, which is unusable for you.
+<p><span style="font-family: sansserif, sans-serif; ">You can also print from your browser after exporting map to HTML, or from Word or Wordpad after copying and pasting the map into it. You can also export the map into HTML with headings, copy and paste it into MS Word and print it from there. That way you can change styles as you want.</span>
+</li>
+</ul><p><span id="show1_14" class="foldclosed" onClick="show_folder('1_14')" style="POSITION: absolute">+</span> <span id="hide1_14" class="foldopened" onClick="hide_folder('1_14')">-</Span>
+<span style="color: #006600;font-size: 125%;font-family: dialog, sans-serif; ">Tips</span>
+<ul id="fold1_14" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #669900;font-family: sansserif, sans-serif; ">Use anonymous nodes</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">&nbsp;</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">&nbsp;</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">&nbsp;</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">&nbsp;</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">&nbsp;</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">&nbsp;</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">&nbsp;</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #669900;font-family: sansserif, sans-serif; ">Following links</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">You can follow link by simply clicking the node</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">On a node with a link and children </span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Clicking at the left side opens the link</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Clinking at the right side (un)folds.</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">example</span>
+<ul><li><a href="http://www.google.com/" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: sansserif, sans-serif; ">Google</span>
+</a>
+<ul><li><span style="font-family: sansserif, sans-serif; ">A</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">B</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #669900;">Having newlines in long nodes</span>
+<ul><li><p>To be able to enter newlines in long nodes, uncheck the check box "Enter confirms" when editing the long node.
+<br>
+
+<br>
+You see?
+<br>
+
+<br>
+There are newlines here, make no mistake about it.
+</li>
+</ul>
+</li>
+
+</ul><p><span id="show1_15" class="foldclosed" onClick="show_folder('1_15')" style="POSITION: absolute">+</span> <span id="hide1_15" class="foldopened" onClick="hide_folder('1_15')">-</Span>
+<span style="color: #669900;font-family: sansserif, sans-serif; ">Pictures and HTML in nodes</span>
+<ul id="fold1_15" style="POSITION: relative; VISIBILITY: visible;"><li><p>An easy way to insert pictures into FreeMind is with Popup &gt; Node &gt; Set Image. You lose all the text you had in the node. Be aware that those images are not correctly pasted outside FreeMind and they need not to be correctly exported to HTML. Pictures in FreeMind are preliminary feature.
+<p>This way, you can turn images contained into the links on nodes into the images themselves. As a result, you can drag and drop several image files into FreeMind, select them as multiple nodes, and them turn them into images in one step, i.e. by choosing Set Image.
+<p><span style="color: #000000;font-family: SansSerif, sans-serif; ">A more technical and not so user friendly way to do it follows. It is possible to include HTML in nodes. You have to start the node content with the tag &lt;html&gt;. This way, you can have pictures in the nodes.</span>
+<p><span style="font-family: SansSerif, sans-serif; ">E.g:</span>
+<ul><li><span style="font-family: SansSerif, sans-serif; "> &lt;html&gt;&lt;img src="linked/Apple.png"&gt;</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: SansSerif, sans-serif; ">The space at the beginning makes sure that the html is not rendered in this node.</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: SansSerif, sans-serif; "> &lt;html&gt;&lt;img src="file://C:/Users/My Documents/Mind Maps/Linked/Apple.png"&gt;</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: SansSerif, sans-serif; ">The space at the beginning makes sure that the html is not rendered in this node.</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #999999;font-size: 83%;font-family: SansSerif, sans-serif; ">As you can see, you can use relative links in the images.</span>
+
+</li>
+
+</ul><p><span style="font-family: SansSerif, sans-serif; ">Formats: On Java1.4.1 on Windows, png, jpg and gif work fine.</span>
+<p><span style="font-family: SansSerif, sans-serif; ">There is no support for HTML nodes and pictures in exporting to text, HTML or RTF (Word, Wordpad). At least, it is convenient for publication on the Web using Freemind's Applet.</span>
+<p><span id="show1_15_1" class="foldclosed" onClick="show_folder('1_15_1')" style="POSITION: absolute">+</span> <span id="hide1_15_1" class="foldopened" onClick="hide_folder('1_15_1')">-</Span>
+<span style="color: #996600;">Example of pictures, working on some Windows distributions</span>
+<ul id="fold1_15_1" style="POSITION: relative; VISIBILITY: visible;"><li><img src="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACBLENDS.GIF">
+
+</li>
+<li><img src="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACBLUPRT.GIF">
+
+</li>
+<li><img src="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACEXPDTN.GIF">
+<ul><li><img src="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACINDSTR.GIF">
+
+</li>
+
+</ul>
+</li>
+<li><img src="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACRICEPR.GIF">
+<ul><li><img src="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACSNDSTN.GIF">
+<ul><li><img src="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/ACSUMIPT.GIF">
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/GLOBE.WMF" target="_blank"><span class=l>~</span>&nbsp;GLOBE.WMF
+</a>
+
+</li>
+<li><a href="file:/C:/Program Files/Microsoft Office/Office/Bitmaps/Styles/STONE.BMP" target="_blank"><span class=l>~</span>&nbsp;STONE.BMP
+</a>
+
+</li>
+
+</ul><p><span id="show1_15_2" class="foldclosed" onClick="show_folder('1_15_2')" style="POSITION: absolute">+</span> <span id="hide1_15_2" class="foldopened" onClick="hide_folder('1_15_2')">-</Span>
+<span style="color: #996600;">Example of HTML</span>
+<ul id="fold1_15_2" style="POSITION: relative; VISIBILITY: visible;"><li><p>
+There are several items:
+<ul>
+<li> Item one
+<li> Item two
+</ul>
+And we have <b>boldface</b> or <i>italics</i>. We can even have table:
+<table>
+<tr><td>a<td>b
+<tr><td>-----------<td>.............
+</table>
+</li>
+</ul></li>
+</ul><p><span id="show1_16" class="foldclosed" onClick="show_folder('1_16')" style="POSITION: absolute">+</span> <span id="hide1_16" class="foldopened" onClick="hide_folder('1_16')">-</Span>
+<span style="color: #669900;">Physical style - patterns</span>
+<ul id="fold1_16" style="POSITION: relative; VISIBILITY: visible;"><li><p>There is a set of physical styles also called patterns. They are stored in the file "patterns.xml" located at the folder "freemind" in your home directory.
+<p>Application
+<ul><li>MenuBar &gt; Edit &gt; Physical Style &gt; ..
+
+</li>
+
+</ul><p>You can create or change patterns by editing "patterns.xml". Pattern applies to node, if there is a &lt;node&gt; tag, it applies to edge, if there is an &lt;edge&gt; tag. &lt;node&gt; tag can have &lt;font&gt; tag as a child. Study the file "patterns.xml" supplied with FreeMind.
+</li>
+</ul><p><span id="show1_17" class="foldclosed" onClick="show_folder('1_17')" style="POSITION: absolute">+</span> <span id="hide1_17" class="foldopened" onClick="hide_folder('1_17')">-</Span>
+<span style="color: #669900;">Zoom</span>
+<ul id="fold1_17" style="POSITION: relative; VISIBILITY: visible;"><li>It is possible to change the zoom from toolbar. It is possible to zoom in / out from Menubar &gt; Edit.
+
+</li>
+<li>As of version 0.7.0 you can change the zoom holding the control button and move the mouse wheel.
+
+</li>
+
+</ul><p><span id="show1_18" class="foldclosed" onClick="show_folder('1_18')" style="POSITION: absolute">+</span> <span id="hide1_18" class="foldopened" onClick="hide_folder('1_18')">-</Span>
+<span style="color: #669900;">File locking</span>
+<ul id="fold1_18" style="POSITION: relative; VISIBILITY: visible;"><li><p>Current version of FreeMind has experimental file locking, which is disabled by default. Current implementation does not really prevent race conditions, but it should be fine for the most of practical purposes. What does file locking mean? It makes sure that more users do not edit the same map at the same time, preventing them from incidentally overwriting the information from each other.
+<p>You can enable experimental file locking, if you are a technical user and are willing to edit user.properties, as described above.
+</li>
+</ul><p><span id="show1_19" class="foldclosed" onClick="show_folder('1_19')" style="POSITION: absolute">+</span> <span id="hide1_19" class="foldopened" onClick="hide_folder('1_19')">-</Span>
+<span style="color: #669900;">Changes in user interface of recent version</span>
+<ul id="fold1_19" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: SansSerif, sans-serif; ">Some of the key settings have been redefined so that they align themselves with what we consider shared standard or intuitive use. Some of the new key settings are modelled on Microsoft tools. New key settings include enter for creating of new siblings below the node, insert for creating new children, F2 for editing nodes - here the Microsoft influence is apparent while there is no intuitive reason to have F2 for node editing. But once you get used to it in all the applications you use, you want to have that one in FreeMind too of course.</span>
+<p><span style="font-family: SansSerif, sans-serif; ">The changes we have made in the user interface are customizable in user.properties to an extent. If you are a technical user and you do not like the changes, change the settings in user.properties.</span>
+</li>
+</ul><p><span style="color: #669900;font-size: 83%;font-family: Default, sans-serif; ">To copy your selection to clipboard when you are editing a node, press right mouse button and choose copy</span>
+<p><span id="show1_20" class="foldclosed" onClick="show_folder('1_20')" style="POSITION: absolute">+</span> <span id="hide1_20" class="foldopened" onClick="hide_folder('1_20')">-</Span>
+<span style="color: #338800;font-family: SansSerif, sans-serif; ">Icons</span>
+<ul id="fold1_20" style="POSITION: relative; VISIBILITY: visible;"><li>There exist some predefined icons in the toolbar on the left hand side of the window.
+
+</li>
+<li>You can remove this toolbar right clicking on the background of FreeMind
+
+</li>
+
+</ul><p><span id="show1_21" class="foldclosed" onClick="show_folder('1_21')" style="POSITION: absolute">+</span> <span id="hide1_21" class="foldopened" onClick="hide_folder('1_21')">-</Span>
+<span style="color: #338800;">Graphical links</span>
+<ul id="fold1_21" style="POSITION: relative; VISIBILITY: visible;"><li><p><body><table width="15cm"><tr><td>
+Mark a node and drag this node to another node
+<b>holding both shift and control keys and release the mouse button first</b> 
+creates a graphical link between them.</td></tr></table></body>
+<p>You can edit some properties of this link using right click onto the line between them.
+<p>You may choose the color and the arrow positions.
+<p>Moreover you can go directly to the other node (even if its folded) using the right click on the small part of the graphical link.
+<p>Example
+<ul><li>Link to another part
+
+</li>
+<li><span id="show1_21_1" class="foldclosed" onClick="show_folder('1_21_1')" style="POSITION: absolute">+</span> <span id="hide1_21_1" class="foldopened" onClick="hide_folder('1_21_1')">-</Span>
+Node with folded subnode
+<ul id="fold1_21_1" style="POSITION: relative; VISIBILITY: visible;"><li>Subnode
+
+</li>
+
+</ul>
+</li>
+<li>Another link
+
+</li>
+
+</ul></li>
+</ul><p><span id="show1_22" class="foldclosed" onClick="show_folder('1_22')" style="POSITION: absolute">+</span> <span id="hide1_22" class="foldopened" onClick="hide_folder('1_22')">-</Span>
+<span style="color: #338800;">Clouds</span>
+<ul id="fold1_22" style="POSITION: relative; VISIBILITY: visible;"><li>Clouds are well suited for highlighting a region.
+
+</li>
+<li>Highlighted are the node and all its subnodes.
+
+</li>
+<li>Clouds can have different background colors.
+
+</li>
+
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_23" class="foldclosed" onClick="show_folder('1_23')" style="POSITION: absolute">+</span> <span id="hide1_23" class="foldopened" onClick="hide_folder('1_23')">-</Span>
+<span style="color: #006633;">Browsing mind maps</span>
+<ul id="fold1_23" style="POSITION: relative; VISIBILITY: visible;"><li><p>You can browse the mind maps in browse mode. Why is there a separate mode for browsing? That's because browsing is the only thing you can do in FreeMind applet, which can be put to your website. Normally, you would not use browse mode in FreeMind.
+</li>
+</ul>
+</li>
+<li><span id="show1_24" class="foldclosed" onClick="show_folder('1_24')" style="POSITION: absolute">+</span> <span id="hide1_24" class="foldopened" onClick="hide_folder('1_24')">-</Span>
+<span style="color: #006633;">Browsing the files on your computer</span>
+<ul id="fold1_24" style="POSITION: relative; VISIBILITY: visible;"><li><p>You can browse the files on your computer using file mode. To enter file mode, in menu: Modes &gt; File.
+<p>You can then browse the file tree as if it was a mind map. You can make any folder the root of the map by chosing "Center" from the node menu. To view or execute a file, follow the link of the node.
+<p>The file mode is currently not very useful; it is a demonstration that it's not too difficult to feed data into the tree from other source than mind map. There is no evidence that people would really use this mode.
+</li>
+</ul>
+</li>
+<li><span id="show1_25" class="foldclosed" onClick="show_folder('1_25')" style="POSITION: absolute">+</span> <span id="hide1_25" class="foldopened" onClick="hide_folder('1_25')">-</Span>
+<span style="color: #669900;font-size: 83%;font-family: SansSerif, sans-serif; ">There is a concept of mode in FreeMind</span>
+<ul id="fold1_25" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: sansserif, sans-serif; ">Although Freemind is primarily a tool for editing Mind Maps, it is designed to be able to view data coming from different data sources. &nbsp;To make a specific data source available for viewing in FreeMind, a programmer has to write a so called mode for that data source. In the standard, there is an example of such a mode, namely file mode. We do not know of any other modes implemented. It is not clear if anyone would really want to make use of this architecture, but it's here to be exploited if someone wants to.</span>
+<p><span style="font-family: sansserif, sans-serif; ">Furthermore, there is code almost ready for Scheme Mode which enables you to edit scheme programs. Again, the usefulness is far from clear. While the mind map mode is clearly a real thing, other modes seem to be more a demonstration of what is possible than something really used by people.</span>
+</li>
+</ul>
+</li>
+<li><span id="show1_26" class="foldclosed" onClick="show_folder('1_26')" style="POSITION: absolute">+</span> <span id="hide1_26" class="foldopened" onClick="hide_folder('1_26')">-</Span>
+<span style="color: #996600;font-family: SansSerif, sans-serif; ">Demonstration of some features</span>
+<ul id="fold1_26" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #669900;font-family: sansserif, sans-serif; ">Appearance</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Nodes can have different colors.</span>
+<ul><li><span style="color: #ff0000;font-family: sansserif, sans-serif; ">Red</span>
+
+</li>
+<li><span style="color: #009900;font-family: sansserif, sans-serif; ">Green</span>
+
+</li>
+<li><span style="color: #0000cc;font-family: sansserif, sans-serif; ">Blue</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Nodes can have different font style</span>
+<ul><li><span style="font-family: dialog, sans-serif; font-weight: bold; ">Bold</span>
+
+</li>
+<li><span style="font-family: dialog, sans-serif; font-style: italic; ">Italics</span>
+
+</li>
+<li><span style="font-family: dialog, sans-serif; font-style: italic; font-weight: bold; ">Bold and italics</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Font of nodes can have different size</span>
+<ul><li><span style="font-size: 91%;font-family: sansserif, sans-serif; ">small</span>
+
+</li>
+<li><span style="font-size: 108%;font-family: sansserif, sans-serif; ">normal</span>
+
+</li>
+<li><span style="font-size: 125%;font-family: sansserif, sans-serif; ">bigger</span>
+
+</li>
+<li><span id="show1_26_1" class="foldclosed" onClick="show_folder('1_26_1')" style="POSITION: absolute">+</span> <span id="hide1_26_1" class="foldopened" onClick="hide_folder('1_26_1')">-</Span>
+<span style="font-size: 166%;font-family: sansserif, sans-serif; ">Large</span>
+<ul id="fold1_26_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-size: 1025%;font-family: sansserif, sans-serif; ">OOh</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Different font may be used</span>
+<ul><li><span style="font-size: 133%;font-family: dialog, sans-serif; ">This</span>
+
+</li>
+<li><span style="font-family: dialog, sans-serif; ">Or that</span>
+
+</li>
+<li><span style="font-size: 175%;font-family: dialog, sans-serif; ">Or that one</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #669900;font-family: sansserif, sans-serif; ">Nodes can be folded</span>
+<ul><li><span id="show1_26_2" class="foldclosed" onClick="show_folder('1_26_2')" style="POSITION: absolute">+</span> <span id="hide1_26_2" class="foldopened" onClick="hide_folder('1_26_2')">-</Span>
+<span style="font-family: sansserif, sans-serif; ">Fold</span>
+<ul id="fold1_26_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: sansserif, sans-serif; ">Hidden</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_26_3" class="foldclosed" onClick="show_folder('1_26_3')" style="POSITION: absolute">+</span> <span id="hide1_26_3" class="foldopened" onClick="hide_folder('1_26_3')">-</Span>
+<span style="font-family: sansserif, sans-serif; ">Tree</span>
+<ul id="fold1_26_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: sansserif, sans-serif; ">Oak</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Beech</span>
+
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Elm</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #669900;font-family: sansserif, sans-serif; ">Nodes can contain followable links to ... </span>
+<ul><li><span style="color: #006699;font-family: sansserif, sans-serif; ">Web pages</span>
+<ul><li><a href="http://www.google.com/" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: sansserif, sans-serif; ">http://www.google.com/</span>
+</a>
+
+</li>
+<li><a href="www.google.com" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: sansserif, sans-serif; ">www.google.com</span>
+</a>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">Freemind thinks this is executable :)</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #006699;font-family: sansserif, sans-serif; ">Local folders</span>
+<ul><li><a href="C:/Program Files/" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: sansserif, sans-serif; ">C:/Program Files/</span>
+</a>
+
+</li>
+<li><a href="/home/" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: sansserif, sans-serif; ">/home/</span>
+</a>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #006699;font-family: sansserif, sans-serif; ">Executables</span>
+<ul><li><a href="C:\WINNT\regedit.exe" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: sansserif, sans-serif; ">C:\WINNT\regedit.exe</span>
+</a>
+<ul><li><span style="color: #006600;font-family: sansserif, sans-serif; ">You see that the node is executable by icon.</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Any document on your local computer or your company network</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #669900;font-family: sansserif, sans-serif; ">Multiline nodes</span>
+<ul><li><p><span style="font-family: sansserif, sans-serif; ">Of the value traps, the most widespread and pernicious is value rigidity. This is an inability to revalue what one sees because of commitment to previous values. In motorcycle maintenance, you must rediscover what you do as you go. Rigid values make this impossible.</span>
+<p><span style="font-family: sansserif, sans-serif; ">The typical situation is that the motorcycle doesn't work. The facts are there but you don't see them. You're looking right at them, but they don't yet have enough value. This is what Ph&#230;drus was talking about. Quality, value, creates the subjects and objects of the world. The facts do not exist until value has created them. If your values are rigid you can't really learn new facts.</span>
+<p><span style="font-family: sansserif, sans-serif; ">This often shows up in premature diagnosis, when you're sure you know what the trouble is, and then when it isn't, you're stuck. Then you've got to find some new clues, but before you can find them you've got to clear your head of old opinions. If you're plagued with value rigidity you can fail to see the real answer even when it's staring you right in the face because you can't see the new answer's importance.</span>
+<p><span style="font-family: sansserif, sans-serif; ">The birth of a new fact is always a wonderful thing to experience. It's dualistically called a ``discovery'' because of the presumption that it has an existence independent of anyone's awareness of it. When it comes along, it always has, at first, a low value. Then, depending on the value-looseness of the observer and the potential quality of the fact, its value increases, either slowly or rapidly, or the value wanes and the fact disappears.</span>
+</li>
+</ul>
+</li>
+<li><span style="color: #669900;">Short multiline nodes with newlines</span>
+<ul><li>Line,
+<br>
+and second,
+<br>
+
+<br>
+and yet another will
+<br>
+do, so what do you think of that?
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #669900;">You can emulate labelled edges</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Tree</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">is a</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Oak</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">is a</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Beech</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">is a</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Elm</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: sansserif, sans-serif; ">Tree</span>
+<ul><li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">&lt;&gt;</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Leaf</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #999999;font-size: 83%;font-family: Default, sans-serif; ">&lt;&gt;</span>
+<ul><li><span style="font-family: sansserif, sans-serif; ">Trunk</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #669900;">You can have icons in a node</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_27" class="foldclosed" onClick="show_folder('1_27')" style="POSITION: absolute">+</span> <span id="hide1_27" class="foldopened" onClick="hide_folder('1_27')">-</Span>
+<span style="color: #006633;">Customizing FreeMind</span>
+<ul id="fold1_27" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: sansserif, sans-serif; ">Ideally, you don't need any customizing at all. But if you really want to customize FreeMind, copy the file "user.properties" to the folder "freemind" in your home directory and edit the properties in the text file using your favorite text editor, e.g. notepad, Vim or Emacs.</span>
+<p><span style="font-family: sansserif, sans-serif; ">You sure know your home directory if you're working on Linux. On Windows 2000, it's typically "C:\Documents and Settings\&lt;UserName&gt;\", on Windows 95, it's "C:\WINDOWS\". Edit "user.properties" in the folder "freemind" of your home directory. On Windows, you can additionally configure file type of extension mm to open with FreeMind.</span>
+</li>
+</ul>
+</li>
+<li><span id="show1_28" class="foldclosed" onClick="show_folder('1_28')" style="POSITION: absolute">+</span> <span id="hide1_28" class="foldopened" onClick="hide_folder('1_28')">-</Span>
+<span style="color: #006699;">Answered questions</span>
+<ul id="fold1_28" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #669900;font-size: 83%;font-family: SansSerif, sans-serif; ">To create multiline node, insert a new and press alt + enter</span>
+
+</li>
+<li><span id="show1_28_1" class="foldclosed" onClick="show_folder('1_28_1')" style="POSITION: absolute">+</span> <span id="hide1_28_1" class="foldopened" onClick="hide_folder('1_28_1')">-</Span>
+<span style="color: #669900;font-size: 83%;font-family: SansSerif, sans-serif; ">To create nodes with newlines / carriage returns, when you cannot find any check box for new lines</span>
+<ul id="fold1_28_1" style="POSITION: relative; VISIBILITY: visible;"><li><p>To be able to edit node with newlines, it must be multiline (or long if you wish) first. That is, first write text that is long enough, then finish editing, then press enter again and you find yourself in the larger editing window. It is only that window which contains the check box "Enter confirms".
+</li>
+</ul>
+</li>
+<li><span id="show1_28_2" class="foldclosed" onClick="show_folder('1_28_2')" style="POSITION: absolute">+</span> <span id="hide1_28_2" class="foldopened" onClick="hide_folder('1_28_2')">-</Span>
+<span style="color: #669900;font-size: 83%;font-family: SansSerif, sans-serif; ">To remove a link</span>
+<ul id="fold1_28_2" style="POSITION: relative; VISIBILITY: visible;"><li><p>In the pop up menu of a node, edit the link by the menu item "Node &gt; Set Link (Textfield)" and set the links as an empty string.
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_29" class="foldclosed" onClick="show_folder('1_29')" style="POSITION: absolute">+</span> <span id="hide1_29" class="foldopened" onClick="hide_folder('1_29')">-</Span>
+<span style="color: #006633;">Installation of FreeMind applet at your web site</span>
+<ul id="fold1_29" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="color: #000000;font-family: dialog, sans-serif; ">You can install the applet at your website so that other users can browse your mind maps.</span>
+<p><a href="http://sourceforge.net/project/showfiles.php?group_id=7118" target="_blank"><span class=l>~</span>&nbsp;Download the applet, that is freemind-browser.
+</a>
+<p>The downloaded archive contains freemindbrowser.jar and freemindbrowser.html. Create a link from your page to freemindbrowser.html. Edit freemindbrowser.html, especially change the path inside so that it points to your mind map. Beware that the applet's jar file must be located at the same server as the map itself, this is for java security reasons. Of course, you have to upload the files to your web site.
+</li>
+</ul>
+</li>
+<li><span id="show1_30" class="foldclosed" onClick="show_folder('1_30')" style="POSITION: absolute">+</span> <span id="hide1_30" class="foldopened" onClick="hide_folder('1_30')">-</Span>
+<span style="color: #006633;font-family: SansSerif, sans-serif; ">Using the FreeMind applet</span>
+<ul id="fold1_30" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: sansserif, sans-serif; ">In applet, you can only use the browse mode, that is, you cannot edit the remote maps. Click the nodes to toggle the folding or follow the links. Drag the background to move the map. You can also search the map, using node popup menu.</span>
+</li>
+</ul>
+</li>
+
+</ul><SCRIPT language=JavaScript>
+fold_document();
+</SCRIPT>
+</body>
+</html>

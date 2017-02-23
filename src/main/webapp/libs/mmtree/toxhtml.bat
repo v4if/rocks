@@ -1,0 +1,1 @@
+java -cp . XslTransformer %1.mm toxhtml.xsl %1.html

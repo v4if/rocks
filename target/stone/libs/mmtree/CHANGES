@@ -1,0 +1,34 @@
+v0.3.1 - 2006-03-11
+
+- Maintenance release designed for FreeMind 0.8.1
+- Uses same Link.png and LocalLink.png pics as freemind UI
+- minor fix for xslt to insert correct path for <?xslt-stylesheet?>-processing instruction
+- http:// and end / are stripped away from link text when show_link_url=true
+- Fixes to internal- and arrowlink handling
+- Supports clouds marked with default color (gray) and node background colors.
+  Cloud rendering with rounded corners in mozilla-based browsers
+- Improved support for newlines
+- Html tags are stripped from title element
+
+v0.3 - 2005-10-20
+
+- Changed license to MIT/X
+- updated marktree.js to match MarkTree 0.4. fixes some issues with keyboard navigation.
+- added parameter to automatically bold nodes that have children. useful if you don't want
+  to explicitly adjust styles in FreeMind.
+- added warning box for non-javascript users
+
+v0.2 - 2004-12-15
+
+- removed html 4.0 style sheet (might be updated later)
+- now supports up to freemind 0.8.0 constructs (clouds, internal links)
+- optionally supports freemind icons
+- optionally presents links freemind-styled (no visible url)
+- ilink pic, icons & some code for new features adapted from 
+  Markus Brueckner's freemind2html.xsl style sheet (bundled in freemind 0.8.0 testversion).
+- external link icon taken directly from freemind package
+
+v0.1 - 2004-07-17
+
+- Initial version.
+
